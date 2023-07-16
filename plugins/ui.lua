@@ -1,6 +1,7 @@
 return {
   {
     "rcarriga/nvim-notify",
+    enabled = false,
     event = "VeryLazy",
     opts = {
       timeout = 3000,
@@ -16,42 +17,19 @@ return {
       vim.notify = require "notify"
     end,
   },
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   priority = 1000,
-  --   -- lazy = false,
-  --   opts = {
-  --     style = "moon",
-  --     on_highlights = function(hl, c)
-  --       local prompt = "#2d3149"
-  --       hl.TelescopeNormal = {
-  --         bg = c.bg_dark,
-  --         fg = c.fg_dark,
-  --       }
-  --       hl.TelescopeBorder = {
-  --         bg = c.bg_dark,
-  --         fg = c.bg_dark,
-  --       }
-  --       hl.TelescopePromptNormal = {
-  --         bg = prompt,
-  --       }
-  --       hl.TelescopePromptBorder = {
-  --         bg = prompt,
-  --         fg = prompt,
-  --       }
-  --       hl.TelescopePromptTitle = {
-  --         bg = prompt,
-  --         fg = prompt,
-  --       }
-  --       hl.TelescopePreviewTitle = {
-  --         bg = c.bg_dark,
-  --         fg = c.bg_dark,
-  --       }
-  --       hl.TelescopeResultsTitle = {
-  --         bg = c.bg_dark,
-  --         fg = c.bg_dark,
-  --       }
-  --     end,
-  --   },
-  -- },
+  {
+    "stevearc/dressing.nvim",
+    event = "VeryLazy",
+    enabled = false,
+    opts = {
+      input = {
+        default_prompt = "➤ ",
+        win_options = { winhighlight = "Normal:Normal,NormalNC:Normal" },
+      },
+      select = {
+        backend = { "telescope", "builtin" },
+        builtin = { win_options = { winhighlight = "Normal:Normal,NormalNC:Normal" } },
+      },
+    },
+  },
 }

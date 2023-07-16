@@ -5,8 +5,8 @@ local M = {}
 local highlights = require "custom.highlights"
 
 M.ui = {
-  theme = "kanagawa",
-  theme_toggle = { "kanagawa", "one_light" },
+  theme = "bearded-arc",
+  theme_toggle = { "bearded-arc", "one_light" },
   extended_integrations = {
     "notify",
   },
@@ -16,7 +16,20 @@ M.ui = {
   hl_override = highlights.override,
   hl_add = highlights.add,
   cmp = {
-    style = "default",
+    style = "atom",
+  },
+  lsp = {
+    signature = {
+      enabled = false,
+    },
+  },
+  lsp_semantic_tokens = true,
+  statusline = {
+    theme = "minimal",
+    overriden_modules = require "custom.configs.statusline",
+  },
+  tabufline = {
+    enabled = true,
   },
 }
 

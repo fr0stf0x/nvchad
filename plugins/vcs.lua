@@ -5,15 +5,13 @@ return {
     dependencies = {
       {
         "sindrets/diffview.nvim",
-        config = true,
+        cmd = { "DiffviewOpen", "DiffviewClose" },
       },
     },
   },
   {
     "tpope/vim-fugitive",
-    cmd = { "Git", "GBrowse", "Gdiffsplit", "Gvdiffsplit" },
-    dependencies = {
-      "tpope/vim-rhubarb",
-    },
+    enabled = false,
+    cmd = { "Git", "GBrowse" },
   },
 }

@@ -13,6 +13,7 @@ local augroup = vim.api.nvim_create_augroup
 
 vim.opt.relativenumber = true
 vim.opt.cmdheight = 0
+vim.opt.scrolloff = 8
 
 vim.filetype.add {
   extension = {

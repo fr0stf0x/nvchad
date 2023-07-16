@@ -1,9 +1,30 @@
 return {
   {
+    "rainbowhxch/accelerated-jk.nvim",
+    event = "BufRead",
+    opts = {
+      mode = "time_driven",
+      enable_deceleration = false,
+      acceleration_motions = {},
+      acceleration_limit = 150,
+      acceleration_table = { 7, 12, 17, 21, 24, 26, 28, 30 },
+      -- when 'enable_deceleration = true', 'deceleration_table = { {200, 3}, {300, 7}, {450, 11}, {600, 15}, {750, 21}, {900, 9999} }'
+      deceleration_table = { { 150, 9999 } },
+    },
+    config = function(_, opts)
+      require("accelerated-jk").setup(opts)
+
+      vim.api.nvim_set_keymap("n", "j", "<Plug>(accelerated_jk_gj)", {})
+      vim.api.nvim_set_keymap("n", "k", "<Plug>(accelerated_jk_gk)", {})
+    end,
+  },
+  {
     "ray-x/lsp_signature.nvim",
     event = "BufRead",
     config = function()
-      require("lsp_signature").setup()
+      require("lsp_signature").setup {
+        hint_enable = false,
+      }
     end,
   },
   {
@@ -42,12 +63,6 @@ return {
     end,
   },
   {
-    "chentoast/marks.nvim",
-    event = "VeryLazy",
-    enabled = false,
-    opts = { force_write_shada = true },
-  },
-  {
     "mbbill/undotree",
     keys = { { "<leader>u", "<Cmd>UndotreeToggle<CR>" } },
     config = function()
@@ -59,6 +74,7 @@ return {
   },
   {
     "petertriho/nvim-scrollbar",
+    enabled = false,
     event = "BufReadPre",
     opts = { marks = { GitChange = { text = "│" } } },
     config = function(_, otps)
@@ -106,27 +122,11 @@ return {
       },
     },
   },
-
-  {
-    "phaazon/hop.nvim",
-    branch = "v2",
-    enabled = false,
-    event = "BufWinEnter",
-    config = function()
-      require("hop").setup { keys = "etovxqpdygfblzhckisuran" }
-    end,
-  },
   {
     "folke/flash.nvim",
     event = "VeryLazy",
     ---@type Flash.Config
-    opts = {
-      -- modes = {
-      --   char = {
-      --     enabled = false,
-      --   },
-      -- },
-    },
+    opts = {},
     keys = {
       {
         "s",

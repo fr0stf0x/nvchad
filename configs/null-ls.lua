@@ -33,8 +33,13 @@ local sources = {
   require "typescript.extensions.null-ls.code-actions",
 
   -- go
-  b.formatting.gofumpt,
+  -- b.formatting.gofmt,
+  -- b.formatting.goimports,
+  -- b.formatting.gofumpt,
   b.formatting.goimports_reviser,
+  b.formatting.golines,
+
+  b.diagnostics.golangci_lint,
 
   -- Lua
   b.formatting.stylua,

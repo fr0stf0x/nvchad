@@ -13,11 +13,26 @@ M.override = {
     bg = "black",
     fg = "grey_fg",
   },
+  DiffAdd = {
+    bg = "#2c3d30",
+    fg = "NONE",
+  },
+  DiffChange = {
+    fg = "NONE",
+  },
+  DiffText = {
+    bg = "#384a66",
+    fg = "NONE",
+  },
+  DiffModified = {
+    bg = "blue",
+    fg = "NONE",
+  },
 }
 
 ---@type HLTable
 M.add = {
-  NvimTreeOpenedFolderName = { fg = "green", bold = true },
+  -- NvimTreeOpenedFolderName = { fg = "green", bold = true },
 }
 
 return M

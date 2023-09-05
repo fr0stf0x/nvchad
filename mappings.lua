@@ -5,10 +5,10 @@ local function diagnostic_goto(next, severity)
   return function()
     severity = severity and vim.diagnostic.severity[severity] or nil
 
-    if next then
+    if next == true then
       vim.diagnostic.goto_next { severity = severity }
     else
-      vim.diagnostic:goto_prev { severity = severity }
+      vim.diagnostic.goto_prev { severity = severity }
     end
   end
 end
@@ -19,13 +19,36 @@ M.disabled = {
     ["]c"] = "",
     ["[d"] = "",
     ["]d"] = "",
+    ["<leader>fm"] = "",
+
     ["<leader>b"] = "",
     ["<leader>f"] = "",
+    ["<leader>v"] = "",
+    ["<leader>h"] = "",
+
+    ["<A-v>"] = "",
+    ["<A-h>"] = "",
+    ["<A-i>"] = "",
+  },
+
+  t = {
+    ["<A-v>"] = "",
+    ["<A-h>"] = "",
+    ["<A-i>"] = "",
   },
 }
 
 M.general = {
   n = {
+    ["c"] = { '"_c' },
+    ["C"] = { '"_C' },
+    ["x"] = { '"_x' },
+    ["X"] = { '"_X' },
+    ["K"] = {
+      function()
+        vim.lsp.buf.hover()
+      end,
+    },
     -- [";"] = { ":", "enter command mode", opts = { nowait = true } },
     ["<leader>q"] = {
       "<cmd>confirm q<cr>",
@@ -45,11 +68,64 @@ M.general = {
     },
     ["]e"] = {
       diagnostic_goto(true, "ERROR"),
-      "Go to previous error",
+      "Go to next error",
+    },
+    ["[c"] = {
+      function()
+        require("treesitter-context").go_to_context()
+      end,
+      "Jump to context",
     },
     ["<C-w>f"] = {
       "<cmd>CloseAllFloatingWindows<cr>",
       "Close all floating windows",
+    },
+  },
+}
+
+M.dap = {
+  n = {
+    ["<leader>U"] = {
+      function()
+        require("dapui").toggle()
+      end,
+      "Toggle Dap UI",
+    },
+    ["<leader>b"] = {
+      function()
+        require("dap").toggle_breakpoint()
+      end,
+      "Toggle breakpoint",
+    },
+    ["<leader>B"] = {
+      function()
+        require("dap").set_breakpoint(vim.fn.input "Breakpoint condition: ")
+      end,
+      "Set conditional breakpoint",
+    },
+    ["<F5>"] = {
+      function()
+        require("dap").continue()
+      end,
+      "Continue breakpoint",
+    },
+    ["<F10>"] = {
+      function()
+        require("dap").step_over()
+      end,
+      "Step over breakpoint",
+    },
+    ["<F11>"] = {
+      function()
+        require("dap").step_info()
+      end,
+      "Step into breakpoint",
+    },
+    ["<F12>"] = {
+      function()
+        require("dap").step_out()
+      end,
+      "Step out breakpoint",
     },
   },
 }
@@ -136,13 +212,13 @@ M.tabufline = {
     ["<leader>n"] = { "<cmd> enew <CR>", "New buffer" },
     ["<leader>bc"] = {
       function()
-        require("nvchad_ui.tabufline").closeOtherBufs()
+        require("nvchad.tabufline").closeOtherBufs()
       end,
       "Close other buffers",
     },
     ["<leader>bC"] = {
       function()
-        require("nvchad_ui.tabufline").closeAllBufs()
+        require("nvchad.tabufline").closeAllBufs()
       end,
       desc = "Close all buffers",
     },

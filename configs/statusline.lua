@@ -1,5 +1,5 @@
 -- Modified nvchad minimal configs
-return function()
+return function(modules)
   local fn = vim.fn
   local config = require("core.utils").load_config().ui.statusline
   local sep_style = config.separator_style
@@ -64,29 +64,55 @@ return function()
     ["!"] = { "SHELL", "St_TerminalMode" },
   }
 
-  return {
-    cursor_position = function()
-      return gen_block("", "%l/%c", "%#St_Pos_sep#", "%#St_Pos_bg#", "%#St_Pos_txt#", " %#ST_EmptySpace#")
-    end,
-    fileInfo = function()
-      local icon = " 󰈚 "
+  modules[1] = (function()
+    local m = vim.api.nvim_get_mode().mode
+    return "%#" .. modes[m][2] .. "Text#" .. " " .. modes[m][1] .. sep_r
+  end)()
 
-      local filename = (fn.expand "%" == "" and "Empty") or fn.expand "%:F"
+  modules[2] = (function()
+    local icon = " 󰈚 "
 
-      if filename ~= "Empty" then
-        local devicons_present, devicons = pcall(require, "nvim-web-devicons")
+    local filename = (fn.expand "%" == "" and "Empty") or fn.expand "%:F"
 
-        if devicons_present then
-          local ft_icon = devicons.get_icon(filename)
-          icon = (ft_icon ~= nil and ft_icon) or icon
-        end
+    if filename ~= "Empty" then
+      local devicons_present, devicons = pcall(require, "nvim-web-devicons")
+
+      if devicons_present then
+        local ft_icon = devicons.get_icon(filename)
+        icon = (ft_icon ~= nil and ft_icon) or icon
       end
+    end
 
-      return gen_block(icon, filename, "%#St_file_sep#", "%#St_file_bg#", "%#St_file_txt#", sep_r)
-    end,
-    mode = function()
-      local m = vim.api.nvim_get_mode().mode
-      return "%#" .. modes[m][2] .. "Text#" .. " " .. modes[m][1] .. sep_r
-    end,
-  }
+    return gen_block(icon, filename, "%#St_file_sep#", "%#St_file_bg#", "%#St_file_txt#", sep_r)
+  end)()
+
+  modules[11] = (function()
+    return gen_block("", "%l/%c", "%#St_Pos_sep#", "%#St_Pos_bg#", "%#St_Pos_txt#", " %#ST_EmptySpace#")
+  end)()
+
+  -- return {
+  --   cursor_position = function()
+  --     return gen_block("", "%l/%c", "%#St_Pos_sep#", "%#St_Pos_bg#", "%#St_Pos_txt#", " %#ST_EmptySpace#")
+  --   end,
+  --   fileInfo = function()
+  --     local icon = " 󰈚 "
+  --
+  --     local filename = (fn.expand "%" == "" and "Empty") or fn.expand "%:F"
+  --
+  --     if filename ~= "Empty" then
+  --       local devicons_present, devicons = pcall(require, "nvim-web-devicons")
+  --
+  --       if devicons_present then
+  --         local ft_icon = devicons.get_icon(filename)
+  --         icon = (ft_icon ~= nil and ft_icon) or icon
+  --       end
+  --     end
+  --
+  --     return gen_block(icon, filename, "%#St_file_sep#", "%#St_file_bg#", "%#St_file_txt#", sep_r)
+  --   end,
+  --   mode = function()
+  --     local m = vim.api.nvim_get_mode().mode
+  --     return "%#" .. modes[m][2] .. "Text#" .. " " .. modes[m][1] .. sep_r
+  --   end,
+  -- }
 end

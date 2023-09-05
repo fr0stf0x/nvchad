@@ -9,6 +9,10 @@ local plugins = {
     "neovim/nvim-lspconfig",
     dependencies = {
       -- format & linting
+      -- {
+      --   "nvimdev/guard.nvim",
+      --   config = require "custom.configs.guard",
+      -- },
       {
         "jose-elias-alvarez/null-ls.nvim",
         config = function()
@@ -35,10 +39,24 @@ local plugins = {
     "williamboman/mason.nvim",
     opts = overrides.mason,
   },
-
+  {
+    "vuki656/package-info.nvim",
+    requires = "MunifTanjim/nui.nvim",
+    config = true,
+    event = "BufRead package.json",
+  },
   {
     "hrsh7th/nvim-cmp",
     opts = {
+      -- sources = {
+      --   { name = "nvim_lsp" },
+      --   { name = "luasnip" },
+      --   { name = "buffer" },
+      --   { name = "nvim_lua" },
+      --   -- { name = "codeium" },
+      --   { name = "path" },
+      --   { name = "crates " },
+      -- },
       mapping = {
         ["<C-j>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
@@ -95,6 +113,12 @@ local plugins = {
     opts = overrides.treesitter,
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
+      {
+        "nvim-treesitter/nvim-treesitter-context",
+        config = function()
+          require("treesitter-context").setup()
+        end,
+      },
       "windwp/nvim-ts-autotag",
     },
   },
@@ -147,6 +171,45 @@ local plugins = {
     config = function()
       require("better_escape").setup()
     end,
+  },
+  {
+    "folke/tokyonight.nvim",
+    priority = 1000,
+    lazy = false,
+    enabled = false,
+    opts = {
+      style = "moon",
+      on_highlights = function(hl, c)
+        local prompt = "#2d3149"
+        hl.TelescopeNormal = {
+          bg = c.bg_dark,
+          fg = c.fg_dark,
+        }
+        hl.TelescopeBorder = {
+          bg = c.bg_dark,
+          fg = c.bg_dark,
+        }
+        hl.TelescopePromptNormal = {
+          bg = prompt,
+        }
+        hl.TelescopePromptBorder = {
+          bg = prompt,
+          fg = prompt,
+        }
+        hl.TelescopePromptTitle = {
+          bg = prompt,
+          fg = prompt,
+        }
+        hl.TelescopePreviewTitle = {
+          bg = c.bg_dark,
+          fg = c.bg_dark,
+        }
+        hl.TelescopeResultsTitle = {
+          bg = c.bg_dark,
+          fg = c.bg_dark,
+        }
+      end,
+    },
   },
 }
 

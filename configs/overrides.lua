@@ -57,7 +57,9 @@ M.mason = {
   ensure_installed = {
     -- lua stuff
     "lua-language-server",
-    "stylua",
+    -- "stylua",
+    -- "buf-language-server",
+    -- "prettierd",
 
     -- web dev stuff
     "css-lsp",
@@ -66,7 +68,8 @@ M.mason = {
     "unocss-language-server",
     -- "tailwindcss-language-server",
     "eslint-lsp",
-    "gopls",
+    -- "gopls",
+    "marksman",
   },
 }
 

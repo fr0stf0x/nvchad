@@ -6,6 +6,10 @@
 --   command = "tabdo wincmd =",
 -- })
 
+-- https://github.com/neovim/neovim/issues/21749#issuecomment-1378720864
+-- Fix loading of json5
+table.insert(vim._so_trails, "/?.dylib")
+
 -- vim.cmd.source "~/.vimrc"
 
 local autocmd = vim.api.nvim_create_autocmd
@@ -14,6 +18,7 @@ local augroup = vim.api.nvim_create_augroup
 vim.opt.relativenumber = true
 vim.opt.cmdheight = 0
 vim.opt.scrolloff = 8
+vim.g.swapfile = false
 
 vim.filetype.add {
   extension = {
@@ -25,8 +30,10 @@ vim.treesitter.language.register("markdown", "mdx")
 
 vim.g.markdown_fenced_languages = {
   "ts=typescript",
+  "tsx=typescriptreact",
   "javascript",
   "typescript",
+  "typescriptreact",
   "bash",
   "lua",
   "go",

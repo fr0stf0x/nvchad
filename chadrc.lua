@@ -5,18 +5,16 @@ local M = {}
 local highlights = require "custom.highlights"
 
 M.ui = {
-  theme = "bearded-arc",
-  theme_toggle = { "bearded-arc", "one_light" },
-  extended_integrations = {
-    "notify",
-  },
+  theme = "kanagawa",
+  theme_toggle = { "kanagawa", "one_light" },
+  extended_integrations = {},
   nvdash = {
     load_on_startup = true,
   },
   hl_override = highlights.override,
   hl_add = highlights.add,
   cmp = {
-    style = "atom",
+    style = "default",
   },
   lsp = {
     signature = {
